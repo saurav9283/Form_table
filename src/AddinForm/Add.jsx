@@ -29,16 +29,6 @@ const Add = ({onFormSubmit}) => {
     };
     onFormSubmit(formData);
     navigate("/")
-    // console.log(formData)
-  };
-  const handleToggle = () => {
-    if (type === "password") {
-      setIcon(<IoEye />);
-      setType("text");
-    } else {
-      setIcon(<IoEyeOff />);
-      setType("password");
-    }
   };
   const navigate = useNavigate();
   const handleCancel=()=>{

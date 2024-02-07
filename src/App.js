@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './Form/Form';
 import Add from './AddinForm/Add';
 
 const App = () => {
-  const [formDataList, setFormDataList] = useState([]);
+  const [formDataList, setFormDataList] = useState(() => {
+    const savedData = localStorage.getItem("formDataList");
+    return savedData ? JSON.parse(savedData) : [];
+  });
 
   const handleFormSubmit = (formData) => {
     setFormDataList([...formDataList, formData]);
   };
 
   const handleEditFormSubmit = (editedFormData) => {
-    const updatedFormDataList = formDataList.map(formData => {
+    const updatedFormDataList = formDataList?.map(formData => {
       if (formData.id === editedFormData.id) {
         return editedFormData; 
       } else {
@@ -20,6 +23,10 @@ const App = () => {
     });
     setFormDataList(updatedFormDataList);
   };
+
+  useEffect(() => {
+    localStorage.setItem("formDataList", JSON.stringify(formDataList));
+  }, [formDataList]);
 
   return (
     <div>
@@ -33,7 +40,6 @@ const App = () => {
             path="/Add"
             element={<Add onFormSubmit={handleFormSubmit} />}
           />
-          
         </Routes>
       </Router>
     </div>

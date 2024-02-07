@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Form.css";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Form = ({ formDataList, onEditFormSubmit }) => {
   const navigate = useNavigate();
+  const [, setFormDataList] = useState([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
 
@@ -36,13 +37,14 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
   const handleSubmitEdit = (e) => {
     e.preventDefault();
     onEditFormSubmit(editFormData);
-    toast.success("Form Edited Successfully!"); // Show success toast
+    toast.success("Form Edited Successfully!");
     handleCloseModal();
   };
 
   const handelDelete = (index) => {
-    const updatedFormDataList = formDataList.filter((_, i) => i !== index);
-    // setFormDataList(updatedFormDataList);
+    const updatedFormDataList = [...formDataList];
+    updatedFormDataList.splice(index, 1);
+    setFormDataList(updatedFormDataList);
   };
 
   return (

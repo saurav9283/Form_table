@@ -15,7 +15,7 @@ const Add = ({onFormSubmit}) => {
     Accountnumber:"",
     ifscNumber:"",
     password:"",
-    // category:""
+    category:""
     
   });
   const handleSubmit = (e) => {
@@ -27,8 +27,10 @@ const Add = ({onFormSubmit}) => {
     Password_pin: e.target.elements.Password_pin?.value,
     Accountnumber: e.target.elements.Accountnumber?.value,
     ifscNumber: e.target.elements.ifscNumber?.value,
-    password: e.target.elements.password?.value
+    password: e.target.elements.password?.value,
+    category: selectedCategory
     };
+    console.log(selectedCategory)
     onFormSubmit(formData);
     navigate("/")
   };
@@ -43,7 +45,7 @@ const Add = ({onFormSubmit}) => {
       Password_pin:"",
       Accountnumber:"",
       ifscNumber:"",
-      // Action:"",
+      category:""
     });
   };
     const renderFields = () => {

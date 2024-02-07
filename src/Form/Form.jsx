@@ -72,7 +72,7 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
                 <td>{formData.Domain}</td>
                 <td>{formData.Url}</td>
                 <td>{formData.Username}</td>
-                <td>{formData.Password_pin}</td>
+                <td>{formData.Password_pin}{formData.password}</td>
                 <td>
                   <EditIcon onClick={() => handleEdit(formData)} />
                   <DeleteIcon onClick={() => handleDelete(index)} />

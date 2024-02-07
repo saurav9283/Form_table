@@ -21,9 +21,9 @@ const Add = ({onFormSubmit}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-    Domain: e.target.elements.Domain.value,
-    Url: e.target.elements.Url.value,
-    Username: e.target.elements.Username.value,
+    Domain: e.target.elements.Domain?.value,
+    Url: e.target.elements.Url?.value,
+    Username: e.target.elements.Username?.value,
     Password_pin: e.target.elements.Password_pin?.value,
     Accountnumber: e.target.elements.Accountnumber?.value,
     ifscNumber: e.target.elements.ifscNumber?.value,

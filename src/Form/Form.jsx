@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./Form.css";
-import { useNavigate } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { toast, ToastContainer } from 'react-toastify'; // Import ToastContainer
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { toast, ToastContainer } from "react-toastify"; // Import ToastContainer
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = ({ formDataList, onEditFormSubmit }) => {
   const navigate = useNavigate();
@@ -27,9 +27,9 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditFormData(prevData => ({
+    setEditFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -43,12 +43,12 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
   const handelDelete = (index) => {
     const updatedFormDataList = formDataList.filter((_, i) => i !== index);
     // setFormDataList(updatedFormDataList);
-  }
+  };
 
   return (
     <>
-      <h1 className='heading'>Password Manager</h1>
-      <div className='addbutton'>
+      <h1 className="heading">Password Manager</h1>
+      <div className="addbutton">
         <button onClick={handleAdd}>Add</button>
       </div>
       <table>
@@ -62,24 +62,32 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
           </tr>
         </thead>
         <tbody>
-          {formDataList?.map((formData, index) => (
-            <tr key={index}>
-              <td>{formData.Domain}</td>
-              <td>{formData.Url}</td>
-              <td>{formData.Username}</td>
-              <td>{formData.Password_pin}</td>
-              <td>
-                <EditIcon onClick={() => handleEdit(formData)} />
-                <DeleteIcon onClick={() => handelDelete(index)} />
-              </td>
+          {formDataList.length > 0 ? (
+            formDataList.map((formData, index) => (
+              <tr key={index}>
+                <td>{formData.Domain}</td>
+                <td>{formData.Url}</td>
+                <td>{formData.Username}</td>
+                <td>{formData.Password_pin}</td>
+                <td>
+                  <EditIcon onClick={() => handleEdit(formData)} />
+                  <DeleteIcon onClick={() => handelDelete(index)} />
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">No data found</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
       {isEditModalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <span className="close" onClick={handleCloseModal}>
+              &times;
+            </span>
             <h2>Edit Details</h2>
             <form onSubmit={handleSubmitEdit}>
               <div className="form-group">
@@ -143,12 +151,14 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
                 />
               </div>
               <button type="submit">Submit</button>
-              <button type='cancel' onClick={handleCloseModal}>Cancel</button>
+              <button type="cancel" onClick={handleCloseModal}>
+                Cancel
+              </button>
             </form>
           </div>
         </div>
       )}
-      <ToastContainer /> 
+      <ToastContainer />
     </>
   );
 };

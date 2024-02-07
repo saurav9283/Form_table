@@ -13,19 +13,21 @@ const Add = ({onFormSubmit}) => {
     Username:"",
     Password_pin:"",
     Accountnumber:"",
-    ifscNumber:""
-    // Action:"",
+    ifscNumber:"",
+    password:"",
+    // category:""
     
   });
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      Domain: e.target.elements.Domain.value,
+    Domain: e.target.elements.Domain.value,
     Url: e.target.elements.Url.value,
     Username: e.target.elements.Username.value,
-    Password_pin: e.target.elements.Password_pin.value,
-    Accountnumber: e.target.elements.Accountnumber.value,
-    ifscNumber: e.target.elements.ifscNumber.value
+    Password_pin: e.target.elements.Password_pin?.value,
+    Accountnumber: e.target.elements.Accountnumber?.value,
+    ifscNumber: e.target.elements.ifscNumber?.value,
+    password: e.target.elements.password?.value
     };
     onFormSubmit(formData);
     navigate("/")

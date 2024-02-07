@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Form.css";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { toast, ToastContainer } from "react-toastify"; // Import ToastContainer
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Form = ({ formDataList, onEditFormSubmit }) => {
@@ -41,9 +41,11 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
     handleCloseModal();
   };
 
-  const handelDelete = (index) => {
+  const handleDelete = (index) => {
+    console.log("Deleting item at index:", index);
     const updatedFormDataList = [...formDataList];
     updatedFormDataList.splice(index, 1);
+    console.log("Updated formDataList:", updatedFormDataList);
     setFormDataList(updatedFormDataList);
   };
 
@@ -73,7 +75,7 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
                 <td>{formData.Password_pin}</td>
                 <td>
                   <EditIcon onClick={() => handleEdit(formData)} />
-                  <DeleteIcon onClick={() => handelDelete(index)} />
+                  <DeleteIcon onClick={() => handleDelete(index)} />
                 </td>
               </tr>
             ))
@@ -132,26 +134,30 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="editaccountnumber">Account Number:</label>
-                <input
-                  type="text"
-                  id="editaccountnumber"
-                  name="Accountnumber"
-                  value={editFormData?.Accountnumber}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="editifsc">IFSC Number:</label>
-                <input
-                  type="text"
-                  id="editifsc"
-                  name="ifscNumber"
-                  value={editFormData?.ifscNumber}
-                  onChange={handleInputChange}
-                />
-              </div>
+              {editFormData?.category !== "socialMedia" && (
+                <>
+                  <div className="form-group">
+                    <label htmlFor="editAccountnumber">Account Number:</label>
+                    <input
+                      type="text"
+                      id="editAccountnumber"
+                      name="Accountnumber"
+                      value={editFormData?.Accountnumber}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="editIfsc">IFSC Number:</label>
+                    <input
+                      type="text"
+                      id="editIfsc"
+                      name="ifscNumber"
+                      value={editFormData?.ifscNumber}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </>
+              )}
               <button type="submit">Submit</button>
               <button type="cancel" onClick={handleCloseModal}>
                 Cancel

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Form.css";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { IoEyeOff, IoEye } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,6 +12,7 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
   const [, setFormDataList] = useState([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
+  const [visiblePasswords, setVisiblePasswords] = useState({}); // New state to manage password visibility per row
 
   const handleAdd = () => {
     navigate("/Add");
@@ -49,6 +51,13 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
     setFormDataList(updatedFormDataList);
   };
 
+  const togglePasswordVisibility = (index) => {
+    setVisiblePasswords((prevVisiblePasswords) => ({
+      ...prevVisiblePasswords,
+      [index]: !prevVisiblePasswords[index],
+    }));
+  };
+
   return (
     <>
       <h1 className="heading">Password Manager</h1>
@@ -72,7 +81,17 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
                 <td>{formData.Domain}</td>
                 <td>{formData.Url}</td>
                 <td>{formData.Username}</td>
-                <td>{formData.Password_pin}{formData.password}</td>
+                <td className="pass">
+                  {visiblePasswords[index] ? (
+                    <span>{formData.Password_pin}</span>
+                  ) : (
+                    <span>{"*".repeat(formData.Password_pin?.length)}</span>
+                  )}
+                  {formData.password}
+                  <span  className="eye" onClick={() => togglePasswordVisibility(index)}>
+                    {visiblePasswords[index] ? <IoEye />:<IoEyeOff />}
+                  </span>
+                </td>
                 <td>
                   <EditIcon onClick={() => handleEdit(formData)} />
                   <DeleteIcon onClick={() => handleDelete(index)} />
@@ -127,7 +146,7 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
               <div className="form-group">
                 <label htmlFor="editPasswordPin">Password/Pin:</label>
                 <input
-                  type="text"
+                  // type={visiblePasswords[index] ? "text" : "password"}
                   id="editPasswordPin"
                   name="Password_pin"
                   value={editFormData?.Password_pin}

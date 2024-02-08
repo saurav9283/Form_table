@@ -145,3 +145,8 @@ button[type="cancel"] {
 button[type="cancel"]:hover {
   background-color: #c82333;
 }
+.pass{
+  display: inline;
+  display: flex;
+  justify-content: space-between;
+}

@@ -6,7 +6,6 @@ import  {IoEyeOff,IoEye} from "react-icons/io5";
 const Add = ({onFormSubmit}) => {
   const [selectedCategory,setSelectedCategory]=useState("");
   const[type,setType]=useState("password");
-  const[icon,setIcon]=useState(<IoEyeOff/>);
   const [formData,setFormData]= useState({
     Domain:"",
     Url:"",

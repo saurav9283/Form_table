@@ -12,7 +12,7 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
   const [, setFormDataList] = useState([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
-  const [visiblePasswords, setVisiblePasswords] = useState({}); // New state to manage password visibility per row
+  const [visiblePasswords, setVisiblePasswords] = useState({}); 
 
   const handleAdd = () => {
     navigate("/Add");

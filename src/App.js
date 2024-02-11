@@ -14,7 +14,7 @@ const App = () => {
   };
 
   const handleEditFormSubmit = (editedFormData) => {
-    const updatedFormDataList = formDataList?.map(formData => {
+    const updatedFormDataList = formDataList.map(formData => {
       if (formData.id === editedFormData.id) {
         return editedFormData; 
       } else {
@@ -22,6 +22,13 @@ const App = () => {
       }
     });
     setFormDataList(updatedFormDataList);
+  };
+
+  const handleDeleteForm = (index) => {
+    const updatedFormDataList = [...formDataList];
+    updatedFormDataList.splice(index, 1);
+    setFormDataList(updatedFormDataList);
+    localStorage.setItem("formDataList", JSON.stringify(updatedFormDataList));
   };
 
   useEffect(() => {
@@ -34,7 +41,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Form formDataList={formDataList} onEditFormSubmit={handleEditFormSubmit} />}
+            element={<Form formDataList={formDataList} onEditFormSubmit={handleEditFormSubmit} onDeleteForm={handleDeleteForm} />}
           />
           <Route
             path="/Add"

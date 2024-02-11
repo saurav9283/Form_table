@@ -6,10 +6,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IoEyeOff, IoEye } from "react-icons/io5";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
-const Form = ({ formDataList, onEditFormSubmit }) => {
+const Form = ({ formDataList, onEditFormSubmit, onDeleteForm }) => {
   const navigate = useNavigate();
-  const [, setFormDataList] = useState([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
   const [visiblePasswords, setVisiblePasswords] = useState({}); 
@@ -43,12 +43,20 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
     handleCloseModal();
   };
 
-  const handleDelete = (index) => {
-    console.log("Deleting item at index:", index);
-    const updatedFormDataList = [...formDataList];
-    updatedFormDataList.splice(index, 1);
-    console.log("Updated formDataList:", updatedFormDataList);
-    setFormDataList(updatedFormDataList);
+  const handelDelete = (index) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onDeleteForm(index);
+      }
+    });
   };
 
   const togglePasswordVisibility = (index) => {
@@ -60,9 +68,17 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
 
   return (
     <>
-      <h1 className="heading">Password Manager</h1>
-      <div className="addbutton">
-        <button onClick={handleAdd}>Add</button>
+      <div className="header">
+        <h1 className="heading">Password Manager</h1>
+      </div>
+      <div className="navigation">
+        <div className="search">
+            <label>search</label>
+            <input className="input" type="text" placeholder="search" />
+        </div>
+        <div className="addbutton">
+          <button onClick={handleAdd}>Add</button>
+        </div>
       </div>
       <table>
         <thead>
@@ -94,7 +110,7 @@ const Form = ({ formDataList, onEditFormSubmit }) => {
                 </td>
                 <td>
                   <EditIcon onClick={() => handleEdit(formData)} />
-                  <DeleteIcon onClick={() => handleDelete(index)} />
+                  <DeleteIcon onClick={() => handelDelete(index)} />
                 </td>
               </tr>
             ))

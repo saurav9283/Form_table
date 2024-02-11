@@ -1,9 +1,24 @@
+.header{
+  background-color: beige;
+  height: 60px;
+  margin-top: -1rem;
+}
 .heading{
   margin-left: 40%;
 }
 .addbutton {
   margin-bottom: 20px;
   margin-left: 90%;
+}
+.search{
+  display: flex;
+  margin-top: 1rem;
+}
+.navigation{
+  display: inline;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 table {
